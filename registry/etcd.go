@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -79,13 +80,19 @@ func (e *EtcdClient) GrantLease(ttl int64) (int64, error) {
 // parseLeaseID 兼容 etcd 网关返回的 number / string 两种 JSON 形态
 func parseLeaseID(raw json.RawMessage) (int64, error) {
 	s := strings.TrimSpace(string(raw))
-	if strings.HasPrefix(s, "\"") {
-		var id int64
-		if err := json.Unmarshal(raw, &id); err != nil {
+	// 如果是字符串格式（带引号），先去掉引号再解析
+	if strings.HasPrefix(s, "\"") && strings.HasSuffix(s, "\"") {
+		var strID string
+		if err := json.Unmarshal(raw, &strID); err != nil {
+			return 0, err
+		}
+		id, err := strconv.ParseInt(strID, 10, 64)
+		if err != nil {
 			return 0, err
 		}
 		return id, nil
 	}
+	// 数字格式直接解析
 	var f float64
 	if err := json.Unmarshal(raw, &f); err != nil {
 		return 0, err

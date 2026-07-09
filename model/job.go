@@ -39,7 +39,7 @@ type JobLog struct {
 	ExecutorAddress        string    `json:"executorAddress" db:"executor_address"`
 	ExecutorHandler        string    `json:"executorHandler" db:"executor_handler"`
 	ExecutorParam          string    `json:"executorParam" db:"executor_param"`
-	ExecutorShardingParam  string    `json:"executorShardingParam" db:"executor_sharding_param"`
+	ExecutorShardingParam  *string   `json:"executorShardingParam" db:"executor_sharding_param"`
 	ExecutorFailRetryCount int       `json:"executorFailRetryCount" db:"executor_fail_retry_count"`
 	TriggerTime            int64     `json:"triggerTime" db:"trigger_time"`
 	TriggerCode            int       `json:"triggerCode" db:"trigger_code"`
