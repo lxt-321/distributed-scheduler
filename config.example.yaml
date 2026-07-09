@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: ""          # 本地复制为 config.yaml 后填入；或用环境变量 MYSQL_PASSWORD 注入
+  db: xxl_job
+
+redis:
+  addr: 127.0.0.1:6379
+  password: ""          # Redis 3.0.504 默认无密码
+  db: 0
+
+etcd:
+  endpoints:
+    - http://127.0.0.1:2379
+
+admin:
+  access_token: ""
+  executor_heartbeat_ttl: 10        # 执行器心跳租约 TTL（秒）
+  executor_discover_prefix: "dscheduler/executors/"

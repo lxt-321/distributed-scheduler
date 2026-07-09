@@ -1,0 +1,11 @@
+# Go
+*.exe
+/bin/
+
+# 本地配置(含密码)不要提交；config.example.yaml 为模板
+config.yaml
+config.local.yaml
+
+# 系统
+.DS_Store
+Thumbs.db
